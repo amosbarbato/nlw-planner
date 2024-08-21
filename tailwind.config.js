@@ -13,6 +13,9 @@ export default {
       backgroundImage: {
         pattern: "url(/bg.png)",
       },
+      animation: {
+        slide: "bounce 0.5s",
+      },
     },
   },
   plugins: [],

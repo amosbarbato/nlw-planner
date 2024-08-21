@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import InputLocalAndDate from "./context/local-date";
 import { DateRange } from "react-day-picker";
 import { InviteGuests } from "./context/invite-guests";
+import { InviteModal } from "./components/modals/invite";
 
 export function App() {
   const [isGuestInputOpen, setIsGuestInputOpen] = useState(false)
+  const [isGuestModalOpen, setIsGuestModalOpen] = useState(false)
+  const [isConfirmTripModalOpen, setIsConfirmTripModalOpen] = useState(false)
+
   const [destination, setDestination] = useState('')
   const [eventStartAndEndDates, setEventStartAndEndDates] = useState<DateRange | undefined>()
 
-  const [isGuestModalOpen, setIsGuestModalOpen] = useState(false)
-  const [isConfirmTripModalOpen, setIsConfirmTripModalOpen] = useState(false)
   const [emailsToInvite, setEmailsToInvite] = useState([])
 
   function openGuestInput() {
@@ -34,6 +36,29 @@ export function App() {
 
   function closeConfirmTripModal() {
     setIsConfirmTripModalOpen(false)
+  }
+
+  function addNewEmailToInvite(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    const data = new FormData(event.currentTarget)
+    const email = data.get('email')?.toString()
+
+    if (!email) return
+
+    if (emailsToInvite.includes(email)) return
+
+    setEmailsToInvite([...emailsToInvite, email])
+
+    event.currentTarget.reset()
+  }
+
+  function removeEmailFromInvites(emailToRemove: string) {
+    const newEmailList = emailsToInvite.filter(
+      (email) => email !== emailToRemove
+    )
+
+    setEmailsToInvite(newEmailList)
   }
 
   return (
@@ -76,6 +101,15 @@ export function App() {
         </p>
 
       </div>
+
+      {isGuestModalOpen && (
+        <InviteModal
+          emailsToInvite={emailsToInvite}
+          addNewEmailToInvite={addNewEmailToInvite}
+          closeGuestModal={closeGuestModal}
+          removeEmailFromInvites={removeEmailFromInvites}
+        />
+      )}
     </main>
   )
 }
