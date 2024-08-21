@@ -1,7 +1,20 @@
-import { ArrowRight, CalendarDays, MapPin } from "lucide-react";
-import { Button } from "./components/button";
+import { useState } from "react";
+import InputLocalAndDate from "./context/local-date";
+import { DateRange } from "react-day-picker";
 
 export function App() {
+  const [isGuestInputOpen, setIsGuestInputOpen] = useState(false)
+  const [destination, setDestination] = useState('')
+  const [eventStartAndEndDates, setEventStartAndEndDates] = useState<DateRange | undefined>()
+
+  function openGuestInput() {
+    setIsGuestInputOpen(true)
+  }
+
+  function closeGuestInput() {
+    setIsGuestInputOpen(false)
+  }
+
   return (
     <main className="h-screen flex items-center justify-center bg-pattern bg-no-repeat bg-center ">
       <div className="max-w-3xl w-full px-6 text-center space-y-8">
@@ -17,28 +30,14 @@ export function App() {
         </div>
 
         <div className="">
-          <div className="bg-zinc-900 p-4 rounded-xl space-y-3">
-            <div className="space-y-2">
-              <div className="h-[42px] flex items-center gap-2 flex-1">
-                <MapPin className="text-zinc-400" size={20} />
-                <input
-                  type="text"
-                  placeholder="Para onde?"
-                  className="text-lg bg-transparent placeholder-zinc-400 outline-none w-full"
-                />
-              </div>
-              <button className="h-[42px] flex items-center gap-2 flex-1 text-zinc-400 w-full">
-                <CalendarDays size={20} />
-                <span className="text-lg">
-                  Quando?
-                </span>
-              </button>
-            </div>
-            <Button>
-              Continuar
-              <ArrowRight size={20} />
-            </Button>
-          </div>
+          <InputLocalAndDate
+            openGuestInput={openGuestInput}
+            closeGuestInput={closeGuestInput}
+            isGuestInputOpen={isGuestInputOpen}
+            setDestination={setDestination}
+            eventStartAndEndDates={eventStartAndEndDates}
+            setEventStartAndEndDates={setEventStartAndEndDates}
+          />
         </div>
 
         <p className="text-zinc-500 text-sm">
