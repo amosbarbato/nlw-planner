@@ -1,11 +1,16 @@
 import { useState } from "react";
 import InputLocalAndDate from "./context/local-date";
 import { DateRange } from "react-day-picker";
+import { InviteGuests } from "./context/invite-guests";
 
 export function App() {
   const [isGuestInputOpen, setIsGuestInputOpen] = useState(false)
   const [destination, setDestination] = useState('')
   const [eventStartAndEndDates, setEventStartAndEndDates] = useState<DateRange | undefined>()
+
+  const [isGuestModalOpen, setIsGuestModalOpen] = useState(false)
+  const [isConfirmTripModalOpen, setIsConfirmTripModalOpen] = useState(false)
+  const [emailsToInvite, setEmailsToInvite] = useState([])
 
   function openGuestInput() {
     setIsGuestInputOpen(true)
@@ -13,6 +18,22 @@ export function App() {
 
   function closeGuestInput() {
     setIsGuestInputOpen(false)
+  }
+
+  function openGuestModal() {
+    setIsGuestModalOpen(true)
+  }
+
+  function closeGuestModal() {
+    setIsGuestModalOpen(false)
+  }
+
+  function openConfirmTripModal() {
+    setIsConfirmTripModalOpen(true)
+  }
+
+  function closeConfirmTripModal() {
+    setIsConfirmTripModalOpen(false)
   }
 
   return (
@@ -29,7 +50,7 @@ export function App() {
           </p>
         </div>
 
-        <div className="">
+        <div className="bg-zinc-900 p-4 rounded-xl space-y-3 shadow-shape">
           <InputLocalAndDate
             openGuestInput={openGuestInput}
             closeGuestInput={closeGuestInput}
@@ -38,6 +59,14 @@ export function App() {
             eventStartAndEndDates={eventStartAndEndDates}
             setEventStartAndEndDates={setEventStartAndEndDates}
           />
+
+          {isGuestInputOpen && (
+            <InviteGuests
+              emailsToInvite={emailsToInvite}
+              openConfirmTripModal={openConfirmTripModal}
+              openGuestModal={openGuestModal}
+            />
+          )}
         </div>
 
         <p className="text-zinc-500 text-sm">

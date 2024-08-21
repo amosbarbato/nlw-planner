@@ -40,7 +40,7 @@ function InputLocalAndDate({
     : null
 
   return (
-    <div className="bg-zinc-900 p-4 rounded-xl space-y-3 shadow-shape">
+    <>
       <div className="space-y-2">
         <div className="h-[42px] flex items-center gap-2 flex-1">
           <MapPin className="text-zinc-400" size={20} />
@@ -120,7 +120,7 @@ function InputLocalAndDate({
         </Button>
       )}
 
-    </div>
+    </>
   )
 }
 
