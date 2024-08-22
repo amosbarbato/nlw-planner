@@ -1,49 +1,72 @@
 import { Link2, Plus } from "lucide-react"
 import { Button } from "./button"
+import { CreateLinkModal } from "./modals/create-link"
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
+import { api } from "../lib/axios"
+
+interface Link {
+  id: string
+  title: string
+  url: string
+}
 
 export function ImportantsLinks() {
+  const { tripId } = useParams();
+  const [links, setLinks] = useState<Link[] | undefined>()
+  const [isCreateLinkModalOpen, setIsCreateLinkModalOpen] = useState(false)
+
+  function openCreateLinkModal() {
+    setIsCreateLinkModalOpen(true)
+  }
+
+  function closeCreateLinkModal() {
+    setIsCreateLinkModalOpen(false)
+  }
+
+  useEffect(() => {
+    api.get(`/trips/${tripId}/links`).then(response => {
+      setLinks(response.data.links)
+    });
+  }, [tripId]);
+
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-semibold">Links importantes</h2>
 
       <div className="space-y-5">
-        <li className="list-none flex items-center justify-between">
-          <div className="space-y-1">
-            <span className="block font-medium text-zinc-100">Reserva do AirBnB</span>
-            <a className="text-xs text-zinc-400" href="https://www.airbnb.com.br/rooms/104700011">https://www.airbnb.com.br/rooms/104700011</a>
-          </div>
-          <Link2 className="text-zinc-400" size={20} />
-        </li>
 
-        <li className="list-none flex items-center justify-between">
-          <div className="space-y-1">
-            <span className="block font-medium text-zinc-100">Reserva do AirBnB</span>
-            <a className="text-xs text-zinc-400" href="https://www.airbnb.com.br/rooms/104700011">https://www.airbnb.com.br/rooms/104700011</a>
-          </div>
-          <Link2 className="text-zinc-400" size={20} />
-        </li>
+        {links && links?.map((link) => {
+          return (
+            <div key={link.id} className="flex items-center justify-between gap-4">
+              <div className="space-y-1">
+                <span className="block font-medium text-zinc-100">
+                  {link.title}
+                </span>
+                <a
+                  href={link.url}
+                  className="block text-xs text-zinc-400 truncate hover:text-zinc-200"
+                >
+                  {link.url}
+                </a>
+              </div>
+              <Link2 className="text-zinc-400 size-5 shrink-0" />
+            </div>
+          )
+        })}
 
-        <li className="list-none flex items-center justify-between">
-          <div className="space-y-1">
-            <span className="block font-medium text-zinc-100">Reserva do AirBnB</span>
-            <a className="text-xs text-zinc-400" href="https://www.airbnb.com.br/rooms/104700011">https://www.airbnb.com.br/rooms/104700011</a>
-          </div>
-          <Link2 className="text-zinc-400" size={20} />
-        </li>
-
-        <li className="list-none flex items-center justify-between">
-          <div className="space-y-1">
-            <span className="block font-medium text-zinc-100">Reserva do AirBnB</span>
-            <a className="text-xs text-zinc-400" href="https://www.airbnb.com.br/rooms/104700011">https://www.airbnb.com.br/rooms/104700011</a>
-          </div>
-          <Link2 className="text-zinc-400" size={20} />
-        </li>
       </div>
 
-      <Button variant="secondary">
+      <Button variant="secondary" onClick={openCreateLinkModal}>
         <Plus size={20} />
         Cadastrar novo Link
       </Button>
+
+      {isCreateLinkModalOpen && (
+        <CreateLinkModal
+          closeCreateLinkModal={closeCreateLinkModal}
+        />
+      )}
 
     </div>
   )
