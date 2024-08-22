@@ -7,6 +7,7 @@ import { api } from "../lib/axios";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { CreateActiveModal } from "../components/modals/create-activity";
+import { ImportantsLinks } from "../components/links";
 
 interface Trip {
   id: string
@@ -75,7 +76,7 @@ export function TripPage() {
             </section>
           ) : (
             <section>
-              <p>Aqui estão os detalhes...</p>
+                <ImportantsLinks />
             </section>
           )}
 
