@@ -21,6 +21,8 @@ export function TripPage() {
   const [trip, setTrip] = useState<Trip | undefined>()
   const [isCreateActivityModalOpen, setIsCreateActivityModalOpen] = useState(false)
 
+  const [activeTab, setActiveTab] = useState("atividades")
+
   function openCreateActivityModal() {
     setIsCreateActivityModalOpen(true)
   }
@@ -58,18 +60,26 @@ export function TripPage() {
             </div>
           </div>
 
-          <section className="gap-16">
-            <div className="flex-1 space-y-6">
-              <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-semibold">Atividades</h2>
-                <Button size="button" onClick={openCreateActivityModal}>
-                  Nova Atividade
-                  <Plus size={20} />
-                </Button>
+          {activeTab === "atividades" ? (
+            <section className="gap-16">
+              <div className="flex-1 space-y-6">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-2xl font-semibold">Atividades</h2>
+                  <Button size="button" onClick={openCreateActivityModal}>
+                    Nova Atividade
+                    <Plus size={20} />
+                  </Button>
+                </div>
+                <Activities />
               </div>
-              <Activities />
-            </div>
-          </section>
+            </section>
+          ) : (
+            <section>
+              <p>Aqui estão os detalhes...</p>
+            </section>
+          )}
+
+
 
         </div>
       </main>
@@ -82,11 +92,17 @@ export function TripPage() {
 
       <div className="fixed bottom-0 w-full p-5 pt-[160px] bg-gradient-to-t from-zinc-950">
         <div className="p-3 bg-zinc-900 rounded-xl flex gap-2">
-          <Button>
+          <Button
+            variant={`${activeTab === "atividades" ? "primary" : "secondary"}`}
+            onClick={() => setActiveTab("atividades")}
+          >
             <CalendarRange size={20} />
             Atividades
           </Button>
-          <Button variant="secondary">
+          <Button
+            variant={`${activeTab === "detalhes" ? "primary" : "secondary"}`}
+            onClick={() => setActiveTab("detalhes")}
+          >
             <Info size={20} />
             Detalhes
           </Button>
