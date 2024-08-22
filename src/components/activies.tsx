@@ -25,7 +25,8 @@ export function Activities() {
 
   return (
     <ul className="space-y-8">
-      {activities?.map((category) => {
+
+      {activities && activities?.map((category) => {
         return (
           <li key={category.date} className="space-y-2.5">
             <div className="flex gap-2 items-baseline">
@@ -62,6 +63,7 @@ export function Activities() {
           </li>
         )
       })}
+
     </ul>
   )
 }
