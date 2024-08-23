@@ -8,6 +8,7 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { CreateActiveModal } from "../components/modals/create-activity";
 import { ImportantsLinks } from "../components/links";
+import { Guests } from "../components/guests";
 
 interface Trip {
   id: string
@@ -75,8 +76,10 @@ export function TripPage() {
               </div>
             </section>
           ) : (
-            <section>
+              <section className="space-y-6">
                 <ImportantsLinks />
+                <div className="border-b border-zinc-800" />
+                <Guests />
             </section>
           )}
 
@@ -91,7 +94,7 @@ export function TripPage() {
         />
       )}
 
-      <div className="fixed bottom-0 w-full p-5 pt-[160px] bg-gradient-to-t from-zinc-950">
+      <div className="fixed bottom-0 w-full p-5 pt-16 bg-gradient-to-t from-black">
         <div className="p-3 bg-zinc-900 rounded-xl flex gap-2">
           <Button
             variant={`${activeTab === "atividades" ? "primary" : "secondary"}`}
