@@ -41,7 +41,7 @@ export function UpdateInvite({ participants, closeGuestsModal }: UpdateInvitePro
       }
 
       try {
-        await api.post(`/trips/${tripId}/participants`, updatedTrip);
+        await api.post(`/trips/${tripId}/invites`, updatedTrip);
         closeGuestsModal();
         setEmailToInvite('');
         window.location.reload();
@@ -80,6 +80,9 @@ export function UpdateInvite({ participants, closeGuestsModal }: UpdateInvitePro
           {invitedEmails.map(email => (
             <div key={email} className="py-1.5 px-2.5 rounded-md bg-zinc-800 flex items-center gap-2">
               <span className="text-zinc-300">{email}</span>
+              <button type="button" onClick={() => setEmailToInvite("")}>
+                <X className="text-zinc-400" size={16} />
+              </button>
             </div>
           ))}
         </div>

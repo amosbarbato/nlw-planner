@@ -46,7 +46,7 @@ export function TripPage() {
 
   return (
     <>
-      <main className="p-5 mx-auto">
+      <main className="p-5 mx-auto mb-24">
         <div className="space-y-5">
 
           <div className="px-4 h-16 bg-zinc-900 rounded-xl shadow-shape flex items-center justify-between">

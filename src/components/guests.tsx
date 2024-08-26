@@ -42,6 +42,7 @@ export function Guests() {
 
     const response = await api.get(`/trips/${tripId}/participants`)
     setParticipants(response.data.participants)
+    window.location.reload();
   }
 
   return (
