@@ -6,8 +6,10 @@ import InputLocalAndDate from "../context/local-date"
 import { InviteGuests } from "../context/invite-guests"
 import { InviteModal } from "../components/modals/invite"
 import { ConfirmTripModal } from "../components/modals/confirm-trip"
+import useIsMobile from "../utils/useIsMobile"
 
 export function CreateTripPage() {
+  const isMobile = useIsMobile();
   const navigate = useNavigate()
 
   const [isGuestInputOpen, setIsGuestInputOpen] = useState(false)
@@ -103,19 +105,19 @@ export function CreateTripPage() {
 
   return (
     <main className="h-screen flex items-center justify-center bg-pattern bg-no-repeat bg-center ">
-      <div className="max-w-3xl w-full px-6 text-center space-y-8">
+      <div className="max-w-3xl w-full px-6 text-center space-y-8 md:flex md:flex-col md:items-center">
         <div className="flex flex-col items-center gap-2">
           <img
             src="/logo.svg"
             alt="plann.er"
-            className="w-2/4"
+            className="w-2/4 md:h-11"
           />
-          <p className="text-zinc-400 text-lg w-[90%]">
+          <p className="text-zinc-400 text-lg max-md:w-[90%]">
             Convide seus amigos e planeje sua próxima viagem!
           </p>
         </div>
 
-        <div className="bg-zinc-900 p-4 rounded-xl space-y-3 shadow-shape">
+        <div className="bg-zinc-900 p-4 rounded-xl space-y-3 shadow-shape md:flex md:items-center md:space-y-0 md:justify-between md:flex-1 md:w-[780px]">
           <InputLocalAndDate
             openGuestInput={openGuestInput}
             closeGuestInput={closeGuestInput}
@@ -125,18 +127,28 @@ export function CreateTripPage() {
             setEventStartAndEndDates={setEventStartAndEndDates}
           />
 
-          {isGuestInputOpen && (
-            <InviteGuests
-              emailsToInvite={emailsToInvite}
-              openConfirmTripModal={openConfirmTripModal}
-              openGuestModal={openGuestModal}
-            />
-          )}
+          <div className="md:hidden">
+            {isGuestInputOpen && (
+              <InviteGuests
+                emailsToInvite={emailsToInvite}
+                openConfirmTripModal={openConfirmTripModal}
+                openGuestModal={openGuestModal}
+              />
+            )}
+          </div>
         </div>
 
-        <p className="text-zinc-500 text-sm">
+        {isGuestInputOpen && (
+          <InviteGuests
+            emailsToInvite={emailsToInvite}
+            openConfirmTripModal={openConfirmTripModal}
+            openGuestModal={openGuestModal}
+          />
+        )}
+
+        <p className="text-zinc-500 text-sm md:w-[490px]">
           Ao planejar sua viagem pela plann.er você automaticamente concorda com nossos
-          <a href="#" className="text-zinc-300"> termos de uso</a>
+          <a href="#" className="text-zinc-300"> termos de uso</a> e 
           <a href="#" className="text-zinc-300"> políticas de privacidade</a>.
         </p>
 

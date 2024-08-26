@@ -5,8 +5,7 @@ import { DateRange, DayPicker } from "react-day-picker"
 import { ptBR } from "date-fns/locale"
 import { format } from "date-fns"
 
-
-interface Props {
+interface LocalAndDateProps {
   isGuestInputOpen: boolean
   closeGuestInput: () => void
   openGuestInput: () => void
@@ -22,7 +21,7 @@ function InputLocalAndDate({
   setDestination,
   setEventStartAndEndDates,
   eventStartAndEndDates,
-}: Props) {
+}: LocalAndDateProps) {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false)
 
   function openDatePicker() {
@@ -34,39 +33,40 @@ function InputLocalAndDate({
   }
 
   const displayDate = eventStartAndEndDates && eventStartAndEndDates.from && eventStartAndEndDates.to
-    ? format(eventStartAndEndDates.from, "d 'de' LLLL", { locale: ptBR })
-      .concat(' até ')
-      .concat(format(eventStartAndEndDates.to, "d 'de' LLLL", { locale: ptBR }))
+    ? format(eventStartAndEndDates.from, "d 'de' LLL", { locale: ptBR })
+      .concat(' a ')
+      .concat(format(eventStartAndEndDates.to, "d 'de' LLL", { locale: ptBR }))
     : null
 
   return (
     <>
-      <div className="space-y-2">
+      <div className="max-md:space-y-2 md:flex md:space-x-5 md:items-center">
         <div className="h-[42px] flex items-center gap-2 flex-1">
           <MapPin className="text-zinc-400" size={20} />
           <input
             disabled={isGuestInputOpen}
             type="text"
             placeholder="Para onde?"
-            className="text-lg bg-transparent placeholder-zinc-400 outline-none w-full"
+            className="text-lg bg-transparent placeholder-zinc-400 outline-none max-md:w-full"
             onChange={event => setDestination(event.target.value)}
           />
         </div>
         <button
           onClick={openDatePicker}
           disabled={isGuestInputOpen}
-          className="h-[42px] flex items-center gap-2 flex-1 text-zinc-400 w-full"
+          className="h-[42px] flex items-center gap-2 max-md:flex-1 text-zinc-400 w-full md:w-fit"
         >
           <CalendarDays size={20} />
           <span className="text-lg">
             {displayDate || 'Quando?'}
           </span>
         </button>
+
       </div>
 
       {isDatePickerOpen && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
-          <div className="w-[90%] rounded-xl py-5 px-6 shadow-shape bg-zinc-900 space-y-8">
+          <div className="w-[90%] md:w-[28%] rounded-xl py-5 px-6 shadow-shape bg-zinc-900 space-y-8">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold">Selecione a data</h2>
@@ -108,14 +108,16 @@ function InputLocalAndDate({
         </div>
       )}
 
+      <div className="w-px h-6 border-l border-zinc-800 max-md:hidden mx-5" />
+
       {isGuestInputOpen ? (
-        <Button onClick={closeGuestInput} variant="secondary">
+        <Button size="button" onClick={closeGuestInput} variant="secondary">
           Alterar local/data
           <Settings2 size={20} />
         </Button>
       ) : (
-        <Button onClick={openGuestInput}>
-          Continuar
+          <Button size="button" onClick={openGuestInput}>
+            Continuar
           <ArrowRight size={20} />
         </Button>
       )}
