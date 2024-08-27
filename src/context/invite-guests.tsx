@@ -42,7 +42,7 @@ export function InviteGuests({
           </Button>
         </div >
       ) : (
-        <div className="bg-zinc-900 p-4 rounded-xl shadow-shape flex items-center gap-5 w-[780px]">
+          <div className="bg-zinc-900 p-4 rounded-xl shadow-shape flex items-center gap-5 md:w-[780px]">
           <button
             type="button"
             onClick={openGuestModal}

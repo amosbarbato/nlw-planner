@@ -32,7 +32,7 @@ export function CreateActiveModal({
   }
 
   return (
-    <div className="fixed inset-0 bg-black/60 flex items-end justify-center backdrop-blur-[8px] z-10">
+    <div className="fixed inset-0 bg-black/60 flex items-end md:items-center justify-center backdrop-blur-[8px] z-10">
       {isMobile ? (
         <div className="w-full py-5 px-6 shadow-shape bg-zinc-900 space-y-5 animate-slide">
           <div className="space-y-2">

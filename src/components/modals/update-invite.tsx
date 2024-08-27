@@ -9,9 +9,14 @@ import useIsMobile from "../../utils/useIsMobile";
 interface UpdateInviteProps {
   participants: ParticipantsProps[]
   closeGuestsModal: () => void
+  removeEmailFromInvites: (email: string) => void
 }
 
-export function UpdateInvite({ participants, closeGuestsModal }: UpdateInviteProps) {
+export function UpdateInvite({
+  participants,
+  closeGuestsModal,
+  removeEmailFromInvites
+}: UpdateInviteProps) {
   const { tripId } = useParams();
   const [emailToInvite, setEmailToInvite] = useState<string>('')
   const invitedEmails = participants.map(participant => participant.email)
@@ -83,7 +88,7 @@ export function UpdateInvite({ participants, closeGuestsModal }: UpdateInvitePro
             {invitedEmails.map(email => (
               <div key={email} className="py-1.5 px-2.5 rounded-md bg-zinc-800 flex items-center gap-2">
                 <span className="text-zinc-300">{email}</span>
-                <button type="button" onClick={() => setEmailToInvite("")}>
+                <button type="button" onClick={() => removeEmailFromInvites(email)}>
                   <X className="text-zinc-400" size={16} />
                 </button>
               </div>

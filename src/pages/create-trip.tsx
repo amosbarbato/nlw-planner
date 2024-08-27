@@ -138,13 +138,15 @@ export function CreateTripPage() {
           </div>
         </div>
 
-        {isGuestInputOpen && (
-          <InviteGuests
-            emailsToInvite={emailsToInvite}
-            openConfirmTripModal={openConfirmTripModal}
-            openGuestModal={openGuestModal}
-          />
-        )}
+        <div className="max-md:hidden">
+          {isGuestInputOpen && (
+            <InviteGuests
+              emailsToInvite={emailsToInvite}
+              openConfirmTripModal={openConfirmTripModal}
+              openGuestModal={openGuestModal}
+            />
+          )}
+        </div>
 
         <p className="text-zinc-500 text-sm md:w-[490px]">
           Ao planejar sua viagem pela plann.er você automaticamente concorda com nossos

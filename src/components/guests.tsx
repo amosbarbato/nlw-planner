@@ -1,7 +1,7 @@
 import { CheckCircle2, CircleDashed, UserCog } from "lucide-react";
 import { Button } from "./button";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { api } from "../lib/axios";
 import { UpdateInvite } from "./modals/update-invite";
 
@@ -21,6 +21,8 @@ export function Guests() {
   const [participants, setParticipants] = useState<ParticipantsProps[]>([])
   const [isGuestModalOpen, setIsGuestModalOpen] = useState(false)
 
+  const [emailsToInvite, setEmailsToInvite] = useState([])
+
   function openGuestsModal() {
     setIsGuestModalOpen(true)
   }
@@ -36,6 +38,29 @@ export function Guests() {
     }
     fetchParticipants()
   }, [tripId])
+
+  function addNewEmailToInvite(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    const data = new FormData(event.currentTarget)
+    const email = data.get('email')?.toString()
+
+    if (!email) return
+
+    if (emailsToInvite.includes(email)) return
+
+    setEmailsToInvite([...emailsToInvite, email])
+
+    event.currentTarget.reset()
+  }
+
+  function removeEmailFromInvites(emailToRemove: string) {
+    const newEmailList = emailsToInvite.filter(
+      (email) => email !== emailToRemove
+    )
+
+    setEmailsToInvite(newEmailList)
+  }
 
   const handleConfirmParticipant = async (participantId: string) => {
     await confirmParticipant(participantId)
@@ -87,7 +112,8 @@ export function Guests() {
       {isGuestModalOpen && (
         <UpdateInvite
           participants={participants}
-          closeGuestsModal={closeGuestsModal}
+          closeGuestsModal={closeGuestsModal} 
+          removeEmailFromInvites={removeEmailFromInvites}
         />
       )}
     </div>

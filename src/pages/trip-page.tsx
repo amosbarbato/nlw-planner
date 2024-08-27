@@ -1,4 +1,4 @@
-import { Calendar, CalendarRange, Info, MapPin, Plus, Settings2 } from "lucide-react";
+import { Calendar, CalendarRange, Info, MapPin, Plus } from "lucide-react";
 import { Button } from "../components/button";
 import { Activities } from "../components/activies";
 import { useParams } from "react-router-dom";
@@ -72,9 +72,9 @@ export function TripPage() {
                   <div className="flex-1 space-y-6">
                     <div className="flex items-center justify-between">
                       <h2 className="text-2xl font-semibold">Atividades</h2>
-                      <Button size="button" onClick={openCreateActivityModal}>
-                        Nova Atividade
+                      <Button size="plus" onClick={openCreateActivityModal}>
                         <Plus size={20} />
+                        Nova Atividade
                       </Button>
                     </div>
                     <Activities />
@@ -116,19 +116,10 @@ export function TripPage() {
               <div className="flex items-center gap-2">
                 <MapPin size={20} className="text-zinc-400" />
                 <span className="text-zinc-100 capitalize text-sm md:text-lg">{trip?.destination}</span>
-              </div>
-              <div className="flex items-center gap-5">
+                </div>
                 <div className="flex items-center gap-2">
                   <Calendar size={20} className="text-zinc-400" />
                   <span className="text-zinc-100 text-sm md:text-lg">{displayedDate}</span>
-                </div>
-
-                <div className="w-px h-6 border-l border-zinc-800" />
-
-                <Button size="button" variant="secondary">
-                  Alterar local/data
-                  <Settings2 size={20} />
-                </Button>
               </div>
             </div>
 
