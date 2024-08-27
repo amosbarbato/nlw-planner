@@ -47,7 +47,7 @@ export function Guests() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-semibold">Convidados</h2>
+      <h2 className="text-2xl md:text-xl font-semibold">Convidados</h2>
 
       <div className="space-y-5">
 

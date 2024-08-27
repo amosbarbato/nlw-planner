@@ -32,14 +32,13 @@ export function ImportantsLinks() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-semibold">Links importantes</h2>
+      <h2 className="text-2xl md:text-xl font-semibold">Links importantes</h2>
 
       <div className="space-y-5">
-
         {links && links?.map((link) => {
           return (
             <div key={link.id} className="flex items-center justify-between gap-4">
-              <div className="space-y-1">
+              <div className="space-y-1 md:space-y-1.5">
                 <span className="block font-medium text-zinc-100">
                   {link.title}
                 </span>
@@ -54,12 +53,11 @@ export function ImportantsLinks() {
             </div>
           )
         })}
-
       </div>
 
       <Button variant="secondary" onClick={openCreateLinkModal}>
         <Plus size={20} />
-        Cadastrar novo Link
+        Cadastrar novo link
       </Button>
 
       {isCreateLinkModalOpen && (
