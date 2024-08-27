@@ -40,7 +40,7 @@ function InputLocalAndDate({
 
   return (
     <>
-      <div className="max-md:space-y-2 md:flex md:space-x-5 md:items-center">
+      <div className="max-md:space-y-2 md:flex md:space-x-5 md:items-center md:w-[500px]">
         <div className="h-[42px] flex items-center gap-2 flex-1">
           <MapPin className="text-zinc-400" size={20} />
           <input
